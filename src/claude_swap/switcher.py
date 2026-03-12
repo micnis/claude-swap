@@ -233,7 +233,7 @@ class ClaudeAccountSwitcher:
         On macOS/Windows: Uses system keyring.
         """
         if self.platform in (Platform.LINUX, Platform.WSL):
-            cred_file = self.credentials_dir / f".creds-{account_num}-{email}.enc"
+            cred_file = self.credentials_dir / f".creds-{account_num}-{email}.bak"
             if cred_file.exists():
                 try:
                     encoded = cred_file.read_text()
@@ -261,7 +261,7 @@ class ClaudeAccountSwitcher:
         On macOS/Windows: Uses system keyring.
         """
         if self.platform in (Platform.LINUX, Platform.WSL):
-            cred_file = self.credentials_dir / f".creds-{account_num}-{email}.enc"
+            cred_file = self.credentials_dir / f".creds-{account_num}-{email}.bak"
             try:
                 encoded = base64.b64encode(credentials.encode("utf-8")).decode("utf-8")
                 cred_file.write_text(encoded)
@@ -283,7 +283,7 @@ class ClaudeAccountSwitcher:
         On macOS/Windows: Removes from system keyring.
         """
         if self.platform in (Platform.LINUX, Platform.WSL):
-            cred_file = self.credentials_dir / f".creds-{account_num}-{email}.enc"
+            cred_file = self.credentials_dir / f".creds-{account_num}-{email}.bak"
             try:
                 if cred_file.exists():
                     cred_file.unlink()
@@ -752,7 +752,7 @@ class ClaudeAccountSwitcher:
                 if self.platform in (Platform.LINUX, Platform.WSL):
                     # Remove credential files on Linux
                     cred_file = (
-                        self.credentials_dir / f".creds-{account_num}-{email}.enc"
+                        self.credentials_dir / f".creds-{account_num}-{email}.bak"
                     )
                     try:
                         if cred_file.exists():
